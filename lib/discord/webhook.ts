@@ -88,7 +88,7 @@ export async function executeWebhook(
       )
     }
   } else {
-    const response = await client.postJson(webhookUrl, payload)
+    const response = method === 'POST' ? await client.postJson(webhookUrl, payload) : await client.patchJson(webhookUrl, payload);
     await handleResponse(response)
   }
 }
