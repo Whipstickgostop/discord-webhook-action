@@ -75,6 +75,9 @@ inputs:
   embed-author-icon-url:
     description: 'Embed author icon'
     required: false
+outputs:
+  response:
+    description: 'Webhook response data'
 runs:
   using: 'node20'
   main: 'dist/index.js'

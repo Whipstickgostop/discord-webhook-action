@@ -1,14 +1,15 @@
-import {blob} from 'node:stream/consumers'
-import {createReadStream} from 'fs'
-import axios from 'axios'
-import * as core from '@actions/core'
-import {TypedResponse} from '@actions/http-client/lib/interfaces'
-import {HttpClient} from '@actions/http-client'
-import path from 'node:path'
+import * as core from '@actions/core';
+import { HttpClient } from '@actions/http-client';
+import { TypedResponse } from '@actions/http-client/lib/interfaces';
+import axios from 'axios';
+import { createReadStream } from 'fs';
+import path from 'node:path';
+import { blob } from 'node:stream/consumers';
 
 const client = new HttpClient()
 
 async function handleResponse(response: TypedResponse<unknown>): Promise<void> {
+  core.setOutput('response', response);
   core.info(
     `Webhook returned ${response.statusCode} with message: ${response.result}. Please see discord documentation at https://discord.com/developers/docs/resources/webhook#execute-webhook for more information`
   )
