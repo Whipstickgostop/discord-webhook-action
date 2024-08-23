@@ -11059,13 +11059,15 @@ const consumers_namespaceObject = require("node:stream/consumers");
 
 const client = new lib.HttpClient();
 async function handleResponse(response) {
-    core.setOutput('result', JSON.stringify(response.result));
-    core.info(`Set output result: ${JSON.stringify(response.result)}`);
-    core.setOutput('statusCode', response.statusCode);
     core.info(`Webhook returned ${response.statusCode} with message: ${response.result}. Please see discord documentation at https://discord.com/developers/docs/resources/webhook#execute-webhook for more information`);
     if (response.statusCode >= 400) {
         core.error('Discord Webhook Action failed to execute webhook. Please see logs above for details. Error printed below:');
         core.error(JSON.stringify(response));
+    }
+    else {
+        core.setOutput('result', JSON.stringify(response.result));
+        core.setOutput('statusCode', response.statusCode);
+        core.setOutput('messageId', response.result.id);
     }
 }
 async function executeWebhook(webhookUrl, threadId, filePath, threadName, flags, wait, payload) {
