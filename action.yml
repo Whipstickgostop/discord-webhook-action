@@ -11,6 +11,9 @@ inputs:
   content:
     description: 'Message that is sent via the webhook.'
     required: false
+  message_id:
+    description: 'ID of the message you want to edit'
+    required: false
   thread-id:
     description: 'ID of the thread you want the webhook to send the message into (will automatically unarchive threads)'
     required: false

@@ -11070,7 +11070,12 @@ async function handleResponse(response) {
         core.setOutput('id', response.result.id);
     }
 }
-async function executeWebhook(webhookUrl, threadId, filePath, threadName, flags, wait, payload) {
+async function executeWebhook(webhookUrl, messageId, threadId, filePath, threadName, flags, wait, payload) {
+    let method = 'POST';
+    if (messageId) {
+        webhookUrl = `${webhookUrl}/messages/${messageId}`;
+        method = 'PATCH';
+    }
     if (threadId !== '') {
         webhookUrl = `${webhookUrl}?thread_id=${threadId}`;
     }
@@ -11096,7 +11101,7 @@ async function executeWebhook(webhookUrl, threadId, filePath, threadName, flags,
             formData.append('flags', flags);
         }
         const response = await lib_axios({
-            method: 'POST',
+            method,
             url: webhookUrl,
             data: formData,
             headers: {
@@ -11139,6 +11144,7 @@ const action_URL = 'url';
 const ICON_URL = 'icon-url';
 const TEXT = 'text';
 const FILENAME = 'filename';
+const MESSAGE_ID = 'message-id';
 const THREAD_ID = 'thread-id';
 const THREAD_NAME = 'thread-name';
 const FLAGS = 'flags';
@@ -11215,6 +11221,7 @@ function parseMapFromParameters(parameters, inputObjectKey = '') {
 async function run() {
     const webhookUrl = core.getInput(WEBHOOK_URL);
     const filename = core.getInput(FILENAME);
+    const messageId = core.getInput(MESSAGE_ID);
     const threadId = core.getInput(THREAD_ID);
     const threadName = core.getInput(THREAD_NAME);
     const flags = core.getInput(FLAGS);
@@ -11222,7 +11229,7 @@ async function run() {
     const payload = createPayload();
     try {
         core.info('Running discord webhook action...');
-        await executeWebhook(webhookUrl, threadId, filename, threadName, flags, wait, payload);
+        await executeWebhook(webhookUrl, messageId, threadId, filename, threadName, flags, wait, payload);
     }
     catch (error) {
         if (error instanceof Error)

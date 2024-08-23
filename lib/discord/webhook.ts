@@ -26,12 +26,19 @@ async function handleResponse(response: TypedResponse<any>): Promise<void> {
 
 export async function executeWebhook(
   webhookUrl: string,
+  messageId: string,
   threadId: string,
   filePath: string,
   threadName: string,
   flags: string,
   wait: boolean,
   payload: unknown): Promise<void>{
+
+  let method = 'POST'
+  if (messageId) {
+    webhookUrl = `${webhookUrl}/messages/${messageId}`
+    method = 'PATCH'
+  }
 
   if (threadId !== '') {
     webhookUrl = `${webhookUrl}?thread_id=${threadId}`
@@ -60,7 +67,7 @@ export async function executeWebhook(
     }
 
     const response = await axios({
-      method: 'POST',
+      method,
       url: webhookUrl,
       data: formData,
       headers: {

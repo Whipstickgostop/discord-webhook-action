@@ -16,6 +16,7 @@ const URL = 'url'
 const ICON_URL = 'icon-url'
 const TEXT = 'text'
 const FILENAME = 'filename'
+const MESSAGE_ID = 'message-id'
 const THREAD_ID = 'thread-id'
 const THREAD_NAME = 'thread-name'
 const FLAGS = 'flags'
@@ -121,6 +122,7 @@ function parseMapFromParameters(
 async function run(): Promise<void> {
   const webhookUrl = core.getInput(WEBHOOK_URL)
   const filename = core.getInput(FILENAME)
+  const messageId = core.getInput(MESSAGE_ID)
   const threadId = core.getInput(THREAD_ID)
   const threadName = core.getInput(THREAD_NAME)
   const flags = core.getInput(FLAGS)
@@ -130,6 +132,7 @@ async function run(): Promise<void> {
     core.info('Running discord webhook action...')
     await executeWebhook(
       webhookUrl,
+      messageId,
       threadId,
       filename,
       threadName,
