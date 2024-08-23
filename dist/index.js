@@ -6383,10 +6383,8 @@ __nccwpck_require__.d(common_utils_namespaceObject, {
 
 // EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
 var core = __nccwpck_require__(2186);
-;// CONCATENATED MODULE: external "node:stream/consumers"
-const consumers_namespaceObject = require("node:stream/consumers");
-// EXTERNAL MODULE: external "fs"
-var external_fs_ = __nccwpck_require__(7147);
+// EXTERNAL MODULE: ./node_modules/@actions/http-client/lib/index.js
+var lib = __nccwpck_require__(6255);
 ;// CONCATENATED MODULE: ./node_modules/axios/lib/helpers/bind.js
 
 
@@ -11045,11 +11043,13 @@ axios.default = axios;
 // this module should only have a default export
 /* harmony default export */ const lib_axios = (axios);
 
-// EXTERNAL MODULE: ./node_modules/@actions/http-client/lib/index.js
-var lib = __nccwpck_require__(6255);
+// EXTERNAL MODULE: external "fs"
+var external_fs_ = __nccwpck_require__(7147);
 ;// CONCATENATED MODULE: external "node:path"
 const external_node_path_namespaceObject = require("node:path");
 var external_node_path_default = /*#__PURE__*/__nccwpck_require__.n(external_node_path_namespaceObject);
+;// CONCATENATED MODULE: external "node:stream/consumers"
+const consumers_namespaceObject = require("node:stream/consumers");
 ;// CONCATENATED MODULE: ./build/lib/discord/webhook.js
 
 
@@ -11059,6 +11059,9 @@ var external_node_path_default = /*#__PURE__*/__nccwpck_require__.n(external_nod
 
 const client = new lib.HttpClient();
 async function handleResponse(response) {
+    core.setOutput('result', JSON.stringify(response.result));
+    core.info(`Set output result: ${JSON.stringify(response.result)}`);
+    core.setOutput('statusCode', response.statusCode);
     core.info(`Webhook returned ${response.statusCode} with message: ${response.result}. Please see discord documentation at https://discord.com/developers/docs/resources/webhook#execute-webhook for more information`);
     if (response.statusCode >= 400) {
         core.error('Discord Webhook Action failed to execute webhook. Please see logs above for details. Error printed below:');
