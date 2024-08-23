@@ -80,6 +80,8 @@ outputs:
     description: 'Webhook response result'
   code:
     description: 'Webhook response status code'
+  id:
+    description: 'ID of the message sent'
 runs:
   using: 'node20'
   main: 'dist/index.js'

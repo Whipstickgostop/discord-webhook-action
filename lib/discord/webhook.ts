@@ -19,8 +19,8 @@ async function handleResponse(response: TypedResponse<any>): Promise<void> {
     core.error(JSON.stringify(response))
   } else {
     core.setOutput('result', JSON.stringify(response.result));
-    core.setOutput('statusCode', response.statusCode);
-    core.setOutput('messageId', response.result.id);
+    core.setOutput('code', response.statusCode);
+    core.setOutput('id', response.result.id);
   }
 }
 
