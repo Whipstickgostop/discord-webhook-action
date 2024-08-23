@@ -1,6 +1,6 @@
 {
-  "name": "discord-webhook",
-  "version": "6.0.0",
+  "name": "@Whipstickgostop/discord-webhook",
+  "version": "1.0.0",
   "private": true,
   "description": "Send discord webhooks via GitHub Actions!",
   "main": "build/src/action.js",
@@ -13,10 +13,6 @@
     "package": "ncc build --source-map --license licenses.txt",
     "test": "jest",
     "all": "npm run build && npm run format && npm run lint && npm run package && npm test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/actions/discord-webhook.git"
   },
   "keywords": [
     "actions",
