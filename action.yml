@@ -76,8 +76,10 @@ inputs:
     description: 'Embed author icon'
     required: false
 outputs:
-  response:
-    description: 'Webhook response data'
+  result:
+    description: 'Webhook response result'
+  code:
+    description: 'Webhook response status code'
 runs:
   using: 'node20'
   main: 'dist/index.js'
