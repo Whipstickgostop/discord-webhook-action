@@ -11,7 +11,7 @@ inputs:
   content:
     description: 'Message that is sent via the webhook.'
     required: false
-  message_id:
+  message-id:
     description: 'ID of the message you want to edit'
     required: false
   thread-id:
