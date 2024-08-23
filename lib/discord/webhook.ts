@@ -9,7 +9,7 @@ import { blob } from 'node:stream/consumers';
 const client = new HttpClient()
 
 async function handleResponse(response: TypedResponse<unknown>): Promise<void> {
-  core.setOutput('response', response);
+  core.setOutput('response', JSON.stringify(response));
   core.info(
     `Webhook returned ${response.statusCode} with message: ${response.result}. Please see discord documentation at https://discord.com/developers/docs/resources/webhook#execute-webhook for more information`
   )
